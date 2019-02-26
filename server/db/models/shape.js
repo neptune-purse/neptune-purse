@@ -20,3 +20,4 @@ const Shape = db.define('shape', {
     defaultValue: '"../../../public/favicon.ico"'
   }
 })
+module.exports = Shape

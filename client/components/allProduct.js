@@ -15,26 +15,21 @@ class AllProduct extends Component {
   constructor(props) {
     super(props)
   }
-  // addButton() {
-  //   this.state
-  // }
   render() {
-    console.log('THIS IS INSIDE ALL PRODUCT COMPONENT', this.props.allProducts)
     return (
       <div className="allProductPage">
-        {/* {this.props.allProducts.map(product => (
-          <section>
+        {this.props.allProducts.map(product => (
+          <section key={product.id}>
             <EachProduct product={product} />
           </section>
-        ))} */}
+        ))}
       </div>
     )
   }
 }
 
 const mapStateToProps = state => ({
-  //check the name of the all products in the store
-  allProducts: state.product
+  allProducts: state.product.products
 })
 
 export default withRouter(connect(mapStateToProps)(AllProduct))

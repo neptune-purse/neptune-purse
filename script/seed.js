@@ -5,7 +5,7 @@ const {Shape} = require('../server/db/models')
 
 const shapes = [
   {
-    name: 'Circle Blue',
+    name: 'Blue Circle',
     description: 'TBA',
     size: 'small',
     color: 'Blue',
@@ -13,7 +13,7 @@ const shapes = [
     imageUrl: '/img/products/blue_circle.png'
   },
   {
-    name: 'Circle Blue',
+    name: 'Blue Circle',
     description: 'TBA',
     size: 'medium',
     color: 'Blue',
@@ -21,7 +21,7 @@ const shapes = [
     imageUrl: '/img/products/blue_circle.png'
   },
   {
-    name: 'Circle Blue',
+    name: 'Blue Circle',
     description: 'TBA',
     size: 'large',
     color: 'Blue',
@@ -29,7 +29,7 @@ const shapes = [
     imageUrl: '/img/products/blue_circle.png'
   },
   {
-    name: 'Circle Red',
+    name: 'Red Circle',
     description: 'TBA',
     size: 'small',
     color: 'Red',
@@ -37,7 +37,7 @@ const shapes = [
     imageUrl: '/img/products/red_circle.png'
   },
   {
-    name: 'Circle Red',
+    name: 'Red Circle',
     description: 'TBA',
     size: 'medium',
     color: 'Red',
@@ -45,7 +45,7 @@ const shapes = [
     imageUrl: '/img/products/red_circle.png'
   },
   {
-    name: 'Circle Red',
+    name: 'Red Circle',
     description: 'TBA',
     size: 'large',
     color: 'Red',
@@ -53,7 +53,7 @@ const shapes = [
     imageUrl: '/img/products/red_circle.png'
   },
   {
-    name: 'Circle Yellow',
+    name: 'Yellow Circle',
     description: 'TBA',
     size: 'small',
     color: 'Yellow',
@@ -61,7 +61,7 @@ const shapes = [
     imageUrl: '/img/products/yellow_circle.png'
   },
   {
-    name: 'Circle Yellow',
+    name: 'Yellow Circle',
     description: 'TBA',
     size: 'medium',
     color: 'Yellow',
@@ -69,7 +69,7 @@ const shapes = [
     imageUrl: '/img/products/yellow_circle.png'
   },
   {
-    name: 'Circle Yellow',
+    name: 'Yellow Circle',
     description: 'TBA',
     size: 'large',
     color: 'Yellow',
@@ -77,7 +77,7 @@ const shapes = [
     imageUrl: '/img/products/yellow_circle.png'
   },
   {
-    name: 'Square Blue',
+    name: 'Blue Square',
     description: 'TBA',
     size: 'small',
     color: 'Blue',
@@ -85,15 +85,15 @@ const shapes = [
     imageUrl: '/img/products/blue_square.png'
   },
   {
-    name: 'Square Blue',
+    name: 'Blue Square',
     description: 'TBA',
     size: 'medium',
-    color: 'Blue',
+    color: 'Blue Square',
     price: 15,
     imageUrl: '/img/products/blue_square.png'
   },
   {
-    name: 'Square Blue',
+    name: 'Blue Square',
     description: 'TBA',
     size: 'large',
     color: 'Blue',
@@ -101,7 +101,7 @@ const shapes = [
     imageUrl: '/img/products/blue_square.png'
   },
   {
-    name: 'Square Red',
+    name: 'Red Square',
     description: 'TBA',
     size: 'small',
     color: 'Red',
@@ -109,7 +109,7 @@ const shapes = [
     imageUrl: '/img/products/red_square.png'
   },
   {
-    name: 'Square Red',
+    name: 'Red Square',
     description: 'TBA',
     size: 'medium',
     color: 'Red',
@@ -117,7 +117,7 @@ const shapes = [
     imageUrl: '/img/products/red_square.png'
   },
   {
-    name: 'Square Red',
+    name: 'Red Square',
     description: 'TBA',
     size: 'large',
     color: 'Red',
@@ -125,7 +125,7 @@ const shapes = [
     imageUrl: '/img/products/red_square.png'
   },
   {
-    name: 'Square Yellow',
+    name: 'Yellow Square',
     description: 'TBA',
     size: 'small',
     color: 'Yellow',
@@ -133,7 +133,7 @@ const shapes = [
     imageUrl: '/img/products/yellow_square.png'
   },
   {
-    name: 'Square Yellow',
+    name: 'Yellow Square',
     description: 'TBA',
     size: 'medium',
     color: 'Yellow',
@@ -141,7 +141,7 @@ const shapes = [
     imageUrl: '/img/products/yellow_square.png'
   },
   {
-    name: 'Square Yellow',
+    name: 'Yellow Square',
     description: 'TBA',
     size: 'large',
     color: 'Yellow',
@@ -149,7 +149,7 @@ const shapes = [
     imageUrl: '/img/products/yellow_square.png'
   },
   {
-    name: 'Triangle Blue',
+    name: 'Blue Triangle',
     description: 'TBA',
     size: 'small',
     color: 'Blue',
@@ -157,7 +157,7 @@ const shapes = [
     imageUrl: '/img/products/blue_triangle.png'
   },
   {
-    name: 'Triangle Blue',
+    name: 'Blue Triangle',
     description: 'TBA',
     size: 'medium',
     color: 'Blue',
@@ -165,7 +165,7 @@ const shapes = [
     imageUrl: '/img/products/blue_triangle.png'
   },
   {
-    name: 'Triangle Blue',
+    name: 'Blue Triangle',
     description: 'TBA',
     size: 'large',
     color: 'Blue',
@@ -173,7 +173,7 @@ const shapes = [
     imageUrl: '/img/products/blue_triangle.png'
   },
   {
-    name: 'Triangle Red',
+    name: 'Red Triangle',
     description: 'TBA',
     size: 'small',
     color: 'Red',
@@ -181,7 +181,7 @@ const shapes = [
     imageUrl: '/img/products/red_triangle.png'
   },
   {
-    name: 'Triangle Red',
+    name: 'Red Triangle',
     description: 'TBA',
     size: 'medium',
     color: 'Red',
@@ -189,7 +189,7 @@ const shapes = [
     imageUrl: '/img/products/red_triangle.png'
   },
   {
-    name: 'Triangle Red',
+    name: 'Red Triangle',
     description: 'TBA',
     size: 'large',
     color: 'Red',
@@ -197,7 +197,7 @@ const shapes = [
     imageUrl: '/img/products/red_triangle.png'
   },
   {
-    name: 'Triangle Yellow',
+    name: 'Yellow Triangle',
     description: 'TBA',
     size: 'small',
     color: 'Yellow',
@@ -205,7 +205,7 @@ const shapes = [
     imageUrl: '/img/products/yellow_triangle.png'
   },
   {
-    name: 'Triangle Yellow',
+    name: 'Yellow Triangle',
     description: 'TBA',
     size: 'medium',
     color: 'Yellow',
@@ -213,7 +213,7 @@ const shapes = [
     imageUrl: '/img/products/yellow_triangle.png'
   },
   {
-    name: 'Triangle Yellow',
+    name: 'Yellow Triangle',
     description: 'TBA',
     size: 'large',
     color: 'Yellow',

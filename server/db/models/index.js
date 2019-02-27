@@ -16,5 +16,5 @@ const Guest = require('./guest')
  * instead of: const User = require('../db/models/user')
  */
 module.exports = {
-  User, Shape, Guest
+  User, Shape, Cart
 }

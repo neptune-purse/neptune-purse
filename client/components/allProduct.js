@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import PropTypes from 'prop-types'
+// import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link, withRouter} from 'react-router-dom'
 
@@ -19,13 +19,14 @@ class AllProduct extends Component {
   //   this.state
   // }
   render() {
+    console.log('THIS IS INSIDE ALL PRODUCT COMPONENT', this.props.allProducts)
     return (
       <div className="allProductPage">
-        {props.allProducts.map(product => (
+        {/* {this.props.allProducts.map(product => (
           <section>
             <EachProduct product={product} />
           </section>
-        ))}
+        ))} */}
       </div>
     )
   }
@@ -33,10 +34,7 @@ class AllProduct extends Component {
 
 const mapStateToProps = state => ({
   //check the name of the all products in the store
-  allProducts: state.products,
-  EachProduct: state.product
+  allProducts: state.product
 })
 
-export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(AllProduct)
-)
+export default withRouter(connect(mapStateToProps)(AllProduct))

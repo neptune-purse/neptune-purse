@@ -24,6 +24,7 @@ const getProduct = products => ({type: GET_PRODUCT, products})
 export const gotProducts = () => async dispatch => {
   try {
     const res = await axios.get('/api/shapes')
+    console.log('This is inside product store', res.data)
     dispatch(getProduct(res.data))
   } catch (err) {
     console.error(err)

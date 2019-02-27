@@ -3,17 +3,11 @@ import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {Navbar} from './components'
 import Routes from './routes'
+import {gotProducts} from './store/product'
 
-//-----------
-
-/*
-IMPORT:
-THUNK CREATOR for:
-- fetch all products
-*/
 class App extends Component {
-  componentDidMount() {
-    this.props.loadProducts()
+  async componentDidMount() {
+    await this.props.loadProducts()
   }
   render() {
     return (
@@ -27,6 +21,6 @@ class App extends Component {
 
 const mapDispatchToProps = dispatch => ({
   //CHECK THENAME OF THE THUNK CREATOR
-  loadProducts: () => dispatch(fetchProducts())
+  loadProducts: () => dispatch(gotProducts())
 })
 export default withRouter(connect(null, mapDispatchToProps)(App))

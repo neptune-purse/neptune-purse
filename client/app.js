@@ -1,15 +1,26 @@
-import React from 'react'
-
+import React, {Component} from 'react'
+import {withRouter} from 'react-router-dom'
+import {connect} from 'react-redux'
 import {Navbar} from './components'
 import Routes from './routes'
+import {gotProducts} from './store/product'
 
-const App = () => {
-  return (
-    <div>
-      <Navbar />
-      <Routes />
-    </div>
-  )
+class App extends Component {
+  async componentDidMount() {
+    await this.props.loadProducts()
+  }
+  render() {
+    return (
+      <div>
+        <Navbar />
+        <Routes />
+      </div>
+    )
+  }
 }
 
-export default App
+const mapDispatchToProps = dispatch => ({
+  //CHECK THENAME OF THE THUNK CREATOR
+  loadProducts: () => dispatch(gotProducts())
+})
+export default withRouter(connect(null, mapDispatchToProps)(App))

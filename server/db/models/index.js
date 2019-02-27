@@ -15,6 +15,11 @@ const Guest = require('./guest')
  * for example, we can say: const {User} = require('../db/models')
  * instead of: const User = require('../db/models/user')
  */
+
+ // User.belongsToMany(Project, { through: UserProject });
+Shape.belongsToMany(User, {through: Cart})
+User.hasMany(Cart)
+
 module.exports = {
   User, Shape, Cart
 }

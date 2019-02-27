@@ -9,6 +9,7 @@ const Cart = db.define('cart', {
     type: Sequelize.STRING,
     validate: {
       isIn: [['order', 'cart']]
+    }
   }
 })
 

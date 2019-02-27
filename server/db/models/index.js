@@ -1,6 +1,6 @@
 const User = require('./user')
 const Shape = require('./shape')
-const Guest = require('./guest')
+const Cart = require('./cart')
 
 /**
  * If we had any associations to make, this would be a great place to put them!

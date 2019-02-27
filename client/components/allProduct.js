@@ -1,15 +1,8 @@
 import React, {Component} from 'react'
-// import PropTypes from 'prop-types'
+import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link, withRouter} from 'react-router-dom'
-
-//----------------------------
 import EachProduct from './eachProduct'
-
-//NEED TO IMPORT FROM STORE:
-/*
-- state of product
-*/
 
 class AllProduct extends Component {
   constructor(props) {

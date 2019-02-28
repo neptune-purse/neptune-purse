@@ -17,7 +17,8 @@ const Shape = db.define('shape', {
   price: Sequelize.FLOAT,
   imageUrl: {
     type: Sequelize.STRING,
-    defaultValue: "../../../public/favicon.ico"
+    defaultValue: '../../../public/favicon.ico'
   }
 })
+
 module.exports = Shape

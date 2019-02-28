@@ -24,7 +24,9 @@ class AllProduct extends Component {
                   {product.name}
                 </Link>
                 <p>Price:{product.price} </p>
-                {/* <button className="addButton" onClick={this.addButton} /> */}
+                <button className="btn" onClick="eventHandler">
+                  Add to Cart
+                </button>
               </li>
             </ul>
 

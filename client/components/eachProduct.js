@@ -18,6 +18,9 @@ const EachProduct = props => {
         <li>Size: {product.size}</li>
         {/* <button className="addButton" onClick={this.addButton} /> */}
       </ul>
+      <button className="btn" onClick="eventHandler">
+        Add to Cart
+      </button>
     </div>
   )
 }

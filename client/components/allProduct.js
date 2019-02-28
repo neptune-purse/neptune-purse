@@ -21,7 +21,7 @@ class AllProduct extends Component {
                     src={product.imageUrl}
                     alt="image"
                   />
-                  {product.name}
+                  <p>{product.name}</p>
                 </Link>
                 <p>Price:{product.price} </p>
                 <button className="btn" onClick="eventHandler">

@@ -28,3 +28,27 @@ form div {
   align-items: center;
   list-style: none;
 }
+
+nav {
+  align-items: center;
+  background-color: #2a28313d;
+  display: flex;
+  height: 90px;
+  padding: 8px;
+  justify-content: space-evenly;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1.5em;
+}
+
+.nav-item {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1em;
+  font-weight: bolder;
+  color: rgba(245, 253, 255, 0.959);
+  text-decoration: none;
+  padding: 10px;
+}
+
+.nav-item:hover {
+  color: #010614;
+}

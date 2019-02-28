@@ -14,10 +14,10 @@ const Shape = db.define('shape', {
     }
   },
   color: Sequelize.STRING,
-  price: Sequelize.FLOAT,
+  price: Sequelize.DECIMAL,
   imageUrl: {
     type: Sequelize.STRING,
-    defaultValue: '../../../public/favicon.ico'
+    defaultValue: '/favicon.ico'
   }
 })
 

@@ -13,7 +13,22 @@ class AllProduct extends Component {
       <div className="allProductPage">
         {this.props.allProducts.map(product => (
           <section key={product.id}>
-            <EachProduct product={product} />
+            <ul id="eachProduct">
+              <li>
+                <Link to={`/shapes/${product.id}`}>
+                  <img
+                    className="productImg"
+                    src={product.imageUrl}
+                    alt="image"
+                  />
+                  {product.name}
+                </Link>
+                <p>Price:{product.price} </p>
+                {/* <button className="addButton" onClick={this.addButton} /> */}
+              </li>
+            </ul>
+
+            {/* <EachProduct product={product} /> */}
           </section>
         ))}
       </div>

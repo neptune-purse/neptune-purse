@@ -4,6 +4,7 @@ body {
 
 a {
   text-decoration: none;
+  color: black;
 }
 
 label {
@@ -18,4 +19,12 @@ nav a {
 form div {
   margin: 1em;
   display: inline-block;
+}
+
+#eachProduct li {
+  float: left;
+  width: 10%;
+  margin: 2.5%;
+  align-items: center;
+  list-style: none;
 }

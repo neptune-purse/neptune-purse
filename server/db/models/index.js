@@ -17,7 +17,6 @@ const OrderItem = require('./orderItem')
  * instead of: const User = require('../db/models/user')
  */
 
-// User.belongsToMany(Project, { through: UserProject });
 User.hasMany(Order)
 
 Order.belongsTo(User)

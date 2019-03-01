@@ -11,17 +11,23 @@ class AllShapes extends Component {
     return (
       <div className="allShapesPage">
         {this.props.allShapes.map(shape => (
-          <Link to={`/shapes/${shape.id}`}>
-            <div id="oneShape" key={shape.id}>
-              <img src={shape.imageUrl} className="shapeImg" alt={shape.name} />
-              <p>{shape.name}</p>
-              <p>Price:{shape.price}</p>
-            </div>
-          </Link>
+          <div key={shape.id} className="oneShape">
+            <Link to={`/shapes/${shape.id}`}>
+              <div id="oneShape">
+                <img
+                  src={shape.imageUrl}
+                  className="shapeImg"
+                  alt={shape.name}
+                />
+                <p>{shape.name}</p>
+                <h6>Price: ${shape.price}</h6>
+              </div>
+            </Link>
+            <button className="btn" type="button" disabled="true">
+              Add to Cart
+            </button>
+          </div>
         ))}
-        <button className="btn" type="button" disabled="true">
-          Add to Cart
-        </button>
       </div>
     )
   }

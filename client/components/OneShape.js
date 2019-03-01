@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {getOneShape} from '../store/shapes'
 
@@ -6,17 +7,22 @@ const OneShape = props => {
   const shape = props.shape
 
   return (
-    <div className="wrapper">
+    <div className="oneShapePage">
       <h1>{shape.name}</h1>
-      <ul id="oneShape">
+      <div id="oneShape">
         <img src={shape.imageUrl} className="shapeImg" alt={shape.name} />
-        <li>Price:{shape.price}</li>
-        <li>Description: {shape.description}</li>
-        <li>Color: {shape.color}</li>
-        <li>Size: {shape.size}</li>
-      </ul>
+        <div>
+          <p>Price: ${shape.price}</p>
+          <p>Color: {shape.color}</p>
+          <p>Size: {shape.size}</p>
+        </div>
+      </div>
+      <h6>Description: {shape.description}</h6>
       <button className="btn" type="button" disabled="true">
         Add to Cart
+      </button>{' '}
+      <button className="btn" type="button">
+        <Link to="/">View all Shapes</Link>
       </button>
     </div>
   )

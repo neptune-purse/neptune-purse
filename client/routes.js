@@ -22,7 +22,7 @@ class Routes extends Component {
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route exact path="/" component={AllShapes} />
-        <Route exact path="/shapes/:shapeId" component={OneShape} />
+        <Route exact path="/shapes/:id" component={OneShape} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}

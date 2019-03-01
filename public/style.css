@@ -1,5 +1,6 @@
 body {
   font-family: sans-serif;
+  text-align: center;
 }
 
 a {
@@ -21,10 +22,28 @@ form div {
   display: inline-block;
 }
 
-#eachProduct li {
-  float: left;
-  width: 10%;
-  margin: 2.5%;
-  align-items: center;
-  list-style: none;
+.allShapesPage {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.oneShape {
+  margin: 1rem;
+  padding: 1rem;
+  border: 1px solid black;
+  box-shadow: 10px 10px 10px grey;
+}
+
+#oneShape div {
+  display: inline-block;
+  margin-left: 1rem;
+}
+
+#oneShape li {
+  list-style: square;
+}
+
+ul #oneShape {
+  display: flex;
 }

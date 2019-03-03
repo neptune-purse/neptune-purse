@@ -794,6 +794,12 @@ function (_Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       this.props.loadInitialData();
+
+      if (this.props.isLoggedIn) {
+        this.props.fetchActiveOrder();
+      } else {
+        this.props.fetchCart();
+      }
     }
   }, {
     key: "render",
@@ -841,6 +847,12 @@ var mapDispatch = function mapDispatch(dispatch) {
   return {
     loadInitialData: function loadInitialData() {
       return dispatch((0, _store.me)());
+    },
+    fetchCart: function fetchCart() {
+      return dispatch((0, _store.getCart)());
+    },
+    fetchActiveOrder: function fetchActiveOrder() {
+      return dispatch((0, _store.getActiveOrder)());
     }
   };
 }; // The `withRouter` wrapper makes sure that updates are not blocked
@@ -953,13 +965,13 @@ var gotActiveOrder = function gotActiveOrder(order) {
 
 var getCart = function getCart() {
   return function (dispatch) {
-    var cart = JSON.parse(window.localStorage.getItem('cart'));
+    var cart = window.localStorage.getItem('cart');
 
     if (!cart) {
-      window.localStorage.setItem('cart', JSON.stringify([]));
+      cart = window.localStorage.setItem('cart', JSON.stringify([]));
     }
 
-    dispatch(gotCart(cart || []));
+    dispatch(gotCart(JSON.parse(cart)));
   };
 };
 
@@ -1085,7 +1097,18 @@ Object.keys(_shapes).forEach(function (key) {
   });
 });
 
-var _cart = _interopRequireDefault(__webpack_require__(/*! ./cart */ "./client/store/cart.js"));
+var _cart = _interopRequireWildcard(__webpack_require__(/*! ./cart */ "./client/store/cart.js"));
+
+Object.keys(_cart).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function get() {
+      return _cart[key];
+    }
+  });
+});
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 

@@ -29,11 +29,11 @@ const gotActiveOrder = order => ({
  * THUNK CREATORS
  */
 export const getCart = () => dispatch => {
-  const cart = JSON.parse(window.localStorage.getItem('cart'))
+  let cart = window.localStorage.getItem('cart')
   if (!cart) {
-    window.localStorage.setItem('cart', JSON.stringify([]))
+    cart = window.localStorage.setItem('cart', JSON.stringify([]))
   }
-  dispatch(gotCart(cart || []))
+  dispatch(gotCart(JSON.parse(cart)))
 }
 
 export const getActiveOrder = () => async dispatch => {

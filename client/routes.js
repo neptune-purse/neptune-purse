@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {Login, Signup, UserHome, AllShapes, OneShape} from './components'
-import {me} from './store'
+import {me, getCart, getActiveOrder} from './store'
 
 /**
  * COMPONENT
@@ -11,6 +11,11 @@ import {me} from './store'
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData()
+    if (this.props.isLoggedIn) {
+      this.props.fetchActiveOrder()
+    } else {
+      this.props.fetchCart()
+    }
   }
 
   render() {
@@ -49,7 +54,9 @@ const mapState = state => {
 }
 
 const mapDispatch = dispatch => ({
-  loadInitialData: () => dispatch(me())
+  loadInitialData: () => dispatch(me()),
+  fetchCart: () => dispatch(getCart()),
+  fetchActiveOrder: () => dispatch(getActiveOrder())
 })
 
 // The `withRouter` wrapper makes sure that updates are not blocked

@@ -816,7 +816,7 @@ function (_Component) {
       }), isLoggedIn && _react.default.createElement(_reactRouterDom.Switch, null, _react.default.createElement(_reactRouterDom.Route, {
         path: "/home",
         component: _components.UserHome
-      })), _react.default.createElement(_reactRouterDom.Route, {
+      }), " //if you're logged in and path has /home, go to userHome"), _react.default.createElement(_reactRouterDom.Route, {
         component: _components.Login
       }));
     }
@@ -840,7 +840,7 @@ var mapState = function mapState(state) {
 var mapDispatch = function mapDispatch(dispatch) {
   return {
     loadInitialData: function loadInitialData() {
-      dispatch((0, _store.me)());
+      return dispatch((0, _store.me)());
     }
   };
 }; // The `withRouter` wrapper makes sure that updates are not blocked

@@ -30,8 +30,9 @@ const gotActiveOrder = order => ({
  */
 export const getCart = () => dispatch => {
   let cart = window.localStorage.getItem('cart')
+  const emptyCart = []
   if (!cart) {
-    cart = window.localStorage.setItem('cart', JSON.stringify([]))
+    cart = window.localStorage.setItem('cart', JSON.stringify(emptyCart))
   }
   dispatch(gotCart(JSON.parse(cart)))
 }

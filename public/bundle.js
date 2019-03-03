@@ -966,9 +966,10 @@ var gotActiveOrder = function gotActiveOrder(order) {
 var getCart = function getCart() {
   return function (dispatch) {
     var cart = window.localStorage.getItem('cart');
+    var emptyCart = [];
 
     if (!cart) {
-      cart = window.localStorage.setItem('cart', JSON.stringify([]));
+      cart = window.localStorage.setItem('cart', JSON.stringify(emptyCart));
     }
 
     dispatch(gotCart(JSON.parse(cart)));

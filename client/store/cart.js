@@ -1,32 +1,49 @@
-// import axios from 'axios'
+import axios from 'axios'
 
 /**
  * INITIAL STATE
  */
 const initialCartState = {
-  currentCart: [],
-  shapeObj: {}
+  currentCart: []
 }
 
 /**
  * ACTION TYPES
  */
 const GOT_CART = 'GOT_CART'
-// const ADD_SHAPE = 'ADD_SHAPE'
+const GOT_ACTIVE_ORDER = 'GOT_ACTIVE_ORDER'
 
 /**
  * ACTION CREATORS
  */
-const gotCart = cart => ({type: GOT_CART, cart})
-// const addShape = shapeObj => ({type: ADD_SHAPE, shapeObj})
+const gotCart = cart => ({
+  type: GOT_CART,
+  cart
+})
+const gotActiveOrder = order => ({
+  type: GOT_ACTIVE_ORDER,
+  order
+})
 
 /**
  * THUNK CREATORS
  */
 export const getCart = () => dispatch => {
-  const cart = JSON.parse(window.localStorage.getItem('cart'))
+  let cart = window.localStorage.getItem('cart')
+  const emptyCart = []
+  if (!cart) {
+    cart = window.localStorage.setItem('cart', JSON.stringify(emptyCart))
+  }
+  dispatch(gotCart(JSON.parse(cart)))
+}
 
-  dispatch(gotCart(cart))
+export const getActiveOrder = () => async dispatch => {
+  try {
+    const response = await axios.get('/api/orders')
+    dispatch(gotActiveOrder(response.data))
+  } catch (err) {
+    console.error(err)
+  }
 }
 
 /**
@@ -36,6 +53,8 @@ export default function(state = initialCartState, action) {
   switch (action.type) {
     case GOT_CART:
       return {...state, currentCart: action.cart}
+    case GOT_ACTIVE_ORDER:
+      return {...state, currentCart: action.order}
     default:
       return state
   }

@@ -33,7 +33,7 @@ form div {
   margin: 1rem;
   padding: 1rem;
   border: 1px solid black;
-  box-shadow: 10px 10px 10px grey;
+  /* box-shadow: 10px 10px 10px grey; */
 }
 
 #oneShape div {

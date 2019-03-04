@@ -41,6 +41,7 @@ export const getActiveOrder = () => async dispatch => {
   try {
     const response = await axios.get('/api/orders')
     dispatch(gotActiveOrder(response.data))
+    // this is not what i want to update cart with hmmmm
   } catch (err) {
     console.error(err)
   }

@@ -11,7 +11,7 @@ const initialCartState = {
  * ACTION TYPES
  */
 const GOT_CART = 'GOT_CART'
-const GOT_ACTIVE_ORDER = 'GOT_ACTIVE_ORDER'
+const GOT_ACTIVE_ORDER_ITEMS = 'GOT_ACTIVE_ORDER_ITEMS'
 
 /**
  * ACTION CREATORS
@@ -20,9 +20,9 @@ const gotCart = cart => ({
   type: GOT_CART,
   cart
 })
-const gotActiveOrder = order => ({
-  type: GOT_ACTIVE_ORDER,
-  order
+const gotActiveOrderItmes = order => ({
+  type: GOT_ACTIVE_ORDER_ITEMS,
+  orderItems
 })
 
 /**
@@ -37,10 +37,19 @@ export const getCart = () => dispatch => {
   dispatch(gotCart(JSON.parse(cart)))
 }
 
-export const getActiveOrder = () => async dispatch => {
+export const getActiveOrderItems = () => async dispatch => {
   try {
-    const response = await axios.get('/api/orders')
-    dispatch(gotActiveOrder(response.data))
+    const response = await axios.get('/api/orderItems')
+    const orderItems = response.data
+    if (orderItems.length) {
+      const order = orderItems.map(orderItem => {
+        return {shape: orderItem.shapeId, quantity: orderItem.quantity}
+      })
+      dispatch(gotActiveOrderItmes(order))
+    } else {
+      dispatch(gotActiveOrderItmes(orderItems))
+    }
+
     // this is not what i want to update cart with hmmmm
   } catch (err) {
     console.error(err)
@@ -54,7 +63,7 @@ export default function(state = initialCartState, action) {
   switch (action.type) {
     case GOT_CART:
       return {...state, currentCart: action.cart}
-    case GOT_ACTIVE_ORDER:
+    case GOT_ACTIVE_ORDER_ITEMS:
       return {...state, currentCart: action.order}
     default:
       return state

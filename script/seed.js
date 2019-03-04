@@ -1,7 +1,22 @@
 'use strict'
 
 const db = require('../server/db')
-const {Shape} = require('../server/db/models')
+const {Shape, User} = require('../server/db/models')
+
+const users = [
+  {
+    firstName: 'Cody',
+    lastName: 'White',
+    email: 'cody@fullstack.com',
+    password: '12345!'
+  },
+  {
+    firstName: 'Bob',
+    lastName: 'Brown',
+    email: 'bob@fullstack.com',
+    password: '54321!'
+  }
+]
 
 const shapes = [
   {
@@ -226,11 +241,8 @@ async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
 
-  await Promise.all(
-    shapes.map(shape => {
-      return Shape.create(shape)
-    })
-  )
+  await Shape.bulkCreate(shapes)
+  await User.bulkCreate(users)
 
   console.log(`seeded successfully`)
 }

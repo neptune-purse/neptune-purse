@@ -11,24 +11,24 @@ describe('User routes', () => {
     return db.sync({force: true})
   })
 
-  describe('/api/users/', () => {
-    const codysEmail = 'cody@puppybook.com'
+  // describe('/api/users/', () => {
+  //   const codysEmail = 'cody@puppybook.com'
 
-    beforeEach(() => {
-      return User.create({
-        firstName: 'Cody',
-        lastName: 'Puppy',
-        email: codysEmail
-      })
-    })
+  //   beforeEach(() => {
+  //     return User.create({
+  //       firstName: 'Cody',
+  //       lastName: 'Puppy',
+  //       email: codysEmail
+  //     })
+  //   })
 
-    it('GET /api/users', async () => {
-      const res = await request(app)
-        .get('/api/users')
-        .expect(200)
+  //   it('GET /api/users', async () => {
+  //     const res = await request(app)
+  //       .get('/api/users')
+  //       .expect(200)
 
-      expect(res.body).to.be.an('array')
-      expect(res.body[0].email).to.be.equal(codysEmail)
-    })
-  }) // end describe('/api/users')
+  //     expect(res.body).to.be.an('array')
+  //     expect(res.body[0].email).to.be.equal(codysEmail)
+  //   })
+  // }) // end describe('/api/users')
 }) // end describe('User routes')

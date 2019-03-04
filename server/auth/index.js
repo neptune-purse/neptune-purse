@@ -1,3 +1,4 @@
+//delete this comment later
 const router = require('express').Router()
 const User = require('../db/models/user')
 module.exports = router
@@ -19,9 +20,26 @@ router.post('/login', async (req, res, next) => {
   }
 })
 
+// router.post('/signup', async (req, res, next) => {
+//   try {
+//     const user = await User.create(req.body)
+//     req.login(user, err => (err ? next(err) : res.json(user)))
+//   } catch (err) {
+//     if (err.name === 'SequelizeUniqueConstraintError') {
+//       res.status(401).send('User already exists')
+//     } else {
+//       next(err)
+//     }
+//   }
+// })
+
+//Working on security below
 router.post('/signup', async (req, res, next) => {
   try {
-    const user = await User.create(req.body)
+    const user = await User.create({
+      email: req.body.email,
+      password: req.body.password
+    })
     req.login(user, err => (err ? next(err) : res.json(user)))
   } catch (err) {
     if (err.name === 'SequelizeUniqueConstraintError') {

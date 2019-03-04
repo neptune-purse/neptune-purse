@@ -63,20 +63,6 @@ const createApp = () => {
   app.use(passport.initialize())
   app.use(passport.session())
 
-  //Security middleware function
-  function authenticateMiddleware(req, res, next) {
-    console.log('THIS IS INSIDE MIDDLEWARE', req)
-    if (req.isAuthenticated()) {
-      return next()
-    }
-    res.redirect('/')
-  }
-
-  app.get('/api', authenticateMiddleware, (req, res) => {
-    console.log('THI SIS THE USER', req.isAuthenticated())
-    res.json('CANNOT FIND')
-  })
-
   // auth and api routes
   app.use('/auth', require('./auth'))
   app.use('/api', require('./api'))

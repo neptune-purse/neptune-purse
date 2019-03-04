@@ -1,7 +1,25 @@
 'use strict'
 
 const db = require('../server/db')
-const {Shape, User} = require('../server/db/models')
+const {Shape, User, Order, OrderItem} = require('../server/db/models')
+
+const orders = [
+  {
+    status: 'active'
+  },
+  {
+    status: 'complete'
+  }
+]
+
+const orderItems = [
+  {
+    quantity: 1
+  },
+  {
+    quantity: 3
+  }
+]
 
 const users = [
   {
@@ -243,6 +261,8 @@ async function seed() {
 
   await Shape.bulkCreate(shapes)
   await User.bulkCreate(users)
+  await Order.bulkCreate(orders)
+  await OrderItem.bulkCreate(orderItems)
 
   console.log(`seeded successfully`)
 }

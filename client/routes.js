@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {Login, Signup, UserHome, AllShapes, OneShape} from './components'
-import {me} from './store'
+import {me, getCart, getActiveOrderItems} from './store'
 
 /**
  * COMPONENT
@@ -11,6 +11,11 @@ import {me} from './store'
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData()
+    if (this.props.isLoggedIn) {
+      this.props.fetchActiveOrderItems()
+    } else {
+      this.props.fetchCart()
+    }
   }
 
   render() {
@@ -26,7 +31,8 @@ class Routes extends Component {
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
-            <Route path="/home" component={UserHome} />
+            <Route path="/home" component={UserHome} /> //if you're logged in
+            and path has /home, go to userHome
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
@@ -47,13 +53,11 @@ const mapState = state => {
   }
 }
 
-const mapDispatch = dispatch => {
-  return {
-    loadInitialData() {
-      dispatch(me())
-    }
-  }
-}
+const mapDispatch = dispatch => ({
+  loadInitialData: () => dispatch(me()),
+  fetchCart: () => dispatch(getCart()),
+  fetchActiveOrderItems: () => dispatch(getActiveOrderItems())
+})
 
 // The `withRouter` wrapper makes sure that updates are not blocked
 // when the url changes

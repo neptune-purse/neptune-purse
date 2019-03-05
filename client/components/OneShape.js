@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {getOneShape} from '../store/shapes'
+import {getCart} from '../store/cart'
 
 const OneShape = props => {
   const shape = props.shape
@@ -29,11 +30,13 @@ const OneShape = props => {
 }
 
 const mapStateToProps = state => ({
-  shape: state.shapes.selectedShape
+  shape: state.shapes.selectedShape,
+  cart: state.cart.currentCart
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  fetchOneShape: dispatch(getOneShape(ownProps.match.params.id))
+  fetchOneShape: dispatch(getOneShape(ownProps.match.params.id)),
+  fetchCart: dispatch(getCart())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(OneShape)

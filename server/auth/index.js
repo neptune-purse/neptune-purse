@@ -1,6 +1,7 @@
 //delete this comment later
 const router = require('express').Router()
 const User = require('../db/models/user')
+const Order = require('../db/models/order')
 module.exports = router
 
 router.post('/login', async (req, res, next) => {
@@ -40,6 +41,11 @@ router.post('/signup', async (req, res, next) => {
       email: req.body.email,
       password: req.body.password
     })
+    const userId = user.id
+    const order = await Order.create({status: 'active', userId: userId})
+    //this order needs to update with whatever is currently in the local storage cart
+    // create orderItems that match shapes and quantity in the local storage cart
+    // bulk create
     req.login(user, err => (err ? next(err) : res.json(user)))
   } catch (err) {
     if (err.name === 'SequelizeUniqueConstraintError') {

@@ -1,14 +1,19 @@
 const router = require('express').Router()
-const {orderItem} = require('../db/models')
+const {OrderItem, Order, Shape} = require('../db/models')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
   try {
-    const orderId = req.session.orderId
-    const orders = await OrderItem.findAll({
-      where: {orderId: orderId}
+    const userId = req.user.id
+    const order = await Order.findOne({
+      where: {userId: userId, status: 'active'}
     })
-    res.json({orderId: orderId, orders: orders})
+    const orderId = order.id
+    const orders = await OrderItem.findAll({
+      where: {orderId: orderId},
+      include: [{model: Shape}]
+    })
+    res.json(orders)
   } catch (err) {
     next(err)
   }
@@ -16,16 +21,20 @@ router.get('/', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   const item = req.body
+  const userId = req.user.id
+  const order = await Order.findOne({
+    where: {userId: userId, status: 'active'}
+  })
+  const orderId = order.id
   try {
-    const query = await OrderItem.findOrCreate({
+    const orderItem = await OrderItem.findOrCreate({
       shapeId: item.shapeid,
       orderId: item.orderId
     })
-    if (query[1] === false) {
-      query[0].quantity = query[0].quantity + item.quantity
+    if (orderItem[1] === false) {
+      orderItem[0].quantity += item.quantity
     }
-    const orderItem = query[0]
-    res.json(orderItem)
+    res.json(orderItem[0])
   } catch (err) {
     next(err)
   }

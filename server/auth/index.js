@@ -13,12 +13,6 @@ router.post('/login', async (req, res, next) => {
       console.log('Incorrect password for user:', req.body.email)
       res.status(401).send('Wrong username and/or password')
     } else {
-      // find associated active order
-      const order = await Order.findOne({
-        where: {uderId: user.id, status: 'active'}
-        // update state with associated orderItems
-      })
-      req.session.orderId = order.id
       req.login(user, err => (err ? next(err) : res.json(user)))
     }
   } catch (err) {
@@ -34,7 +28,6 @@ router.post('/signup', async (req, res, next) => {
     //this order needs to update with whatever is currently in the local storage cart
     // create orderItems that match shapes and quantity in the local storage cart
     // bulk create
-    req.session.orderId = order.id
     req.login(user, err => (err ? next(err) : res.json(user)))
   } catch (err) {
     if (err.name === 'SequelizeUniqueConstraintError') {

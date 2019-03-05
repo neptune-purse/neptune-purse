@@ -8,13 +8,14 @@ const Container = props => {
   return (
     <div className="container">
       <AllShapes allShapes={props.allShapes} />
-      <ShoppingCart />
+      <ShoppingCart activeCart={props.activeCart} />
     </div>
   )
 }
 
 const mapStateToProps = state => ({
-  allShapes: state.shapes.allShapes
+  allShapes: state.shapes.allShapes,
+  activeCart: state.shoppingCart.activeCart
 })
 
 export default withRouter(connect(mapStateToProps)(Container))

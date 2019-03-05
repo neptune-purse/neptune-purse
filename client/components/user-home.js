@@ -8,9 +8,9 @@ import {getActiveCart} from '../store/shoppingCart'
  */
 
 class UserHome extends Component {
-  // async componentDidMount() {
-  //   await this.props.loadShoppingCart()
-  // }
+  async componentDidMount() {
+    await this.props.loadShoppingCart()
+  }
 
   render() {
     const {email} = this.props
@@ -32,12 +32,12 @@ const mapState = state => {
   }
 }
 
-// const mapDispatch = dispatch => ({
-//   loadShoppingCart: () => dispatch(getActiveCart())
-// })
+const mapDispatch = dispatch => ({
+  loadShoppingCart: () => dispatch(getActiveCart())
+})
 
-// export default connect(mapState, mapDispatch)(UserHome)
-export default connect(mapState)(UserHome)
+export default connect(mapState, mapDispatch)(UserHome)
+
 /**
  * PROP TYPES
  */

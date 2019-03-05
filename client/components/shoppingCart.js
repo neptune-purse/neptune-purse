@@ -10,7 +10,7 @@ class ShoppingCart extends Component {
   }
 
   render() {
-    console.log('im checking original', this.props.activeCart)
+    console.log('im inside Shopping Cart', this.props.activeCart)
     return (
       <div className="shoppingCart">
         <h2 className="section-title">Shopping Cart</h2>
@@ -22,12 +22,12 @@ class ShoppingCart extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  activeCart: state.shoppingCart.activeCart
-})
+// const mapStateToProps = state => ({
+//   activeCart: state.shoppingCart.activeCart
+// })
 
 const mapDispatch = dispatch => ({
   loadShoppingCart: () => dispatch(getActiveCart())
 })
 
-export default connect(mapStateToProps, mapDispatch)(ShoppingCart)
+export default connect(null, mapDispatch)(ShoppingCart)

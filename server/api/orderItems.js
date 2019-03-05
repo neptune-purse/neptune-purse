@@ -6,7 +6,10 @@ router.get('/', async (req, res, next) => {
   try {
     const userId = req.user.id
     const order = await Order.findOne({
-      where: {userId: userId, status: 'active'}
+      where: {
+        userId,
+        status: 'active'
+      }
     })
     const orderId = order.id
     const orders = await OrderItem.findAll({

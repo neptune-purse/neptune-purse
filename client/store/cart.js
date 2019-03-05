@@ -35,13 +35,20 @@ const addedToActiveOrder = orderItem => ({
 /**
  * THUNK CREATORS
  */
-export const getCart = () => dispatch => {
-  let cart = window.localStorage.getItem('cart')
-  const emptyCart = []
-  if (!cart) {
-    cart = window.localStorage.setItem('cart', JSON.stringify(emptyCart))
+export const getCart = () => async dispatch => {
+  try {
+    const response = await axios.get('/api/orderItems')
+    dispatch(gotOrUpdatedCart(response.data))
+  } catch (err) {
+    console.error(err)
   }
-  dispatch(gotOrUpdatedCart(JSON.parse(cart)))
+
+  // let cart = window.localStorage.getItem('cart')
+  // const emptyCart = []
+  // if (!cart) {
+  //   cart = window.localStorage.setItem('cart', JSON.stringify(emptyCart))
+  // }
+  // dispatch(gotOrUpdatedCart(JSON.parse(cart)))
 }
 
 // let item = {

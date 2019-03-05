@@ -7,6 +7,12 @@ class AllShapes extends Component {
     super(props)
   }
 
+  // handleIncrement(item) {
+  //   const qty = item.quantity + 1
+  //   const newObj = {...item, quantity: qty}
+  //   this.props.changeQty(newObj)
+  // }
+
   render() {
     return (
       <div className="allShapesPage">

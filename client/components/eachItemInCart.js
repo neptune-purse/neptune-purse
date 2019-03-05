@@ -10,30 +10,30 @@ class EachItemInCart extends Component {
     this.handleDecrease = this.handleDecrease.bind(this)
   }
 
-  handleIncrement() {
-    const qty = this.props.item.quantity + 1
-    const newObj = {...this.props.item, quantity: qty}
+  handleIncrement(item) {
+    const qty = item.quantity + 1
+    const newObj = {...item, quantity: qty}
     this.props.changeQty(newObj)
   }
 
-  handleDecrease() {
-    const qty = this.props.item.quantity - 1
-    const newObj = {...this.props.item, quantity: qty}
-
+  handleDecrease(item) {
+    const qty = item.quantity - 1
+    const newObj = {...item, quantity: qty}
     this.props.changeQty(newObj)
   }
   render() {
-    const {item} = this.props
     return (
-      <section key={item.id} className="cartList">
-        <div className="eachItem">
-          <p>Item: {item.shape.name}</p>
-          <p>Price: ${item.shape.price}</p>
-          <p>Size: {item.shape.size}</p>
-          <p>Qty: {item.quantity}</p>
-          <button onClick={this.handleIncrement}>Increase</button>
-          <button onClick={this.handleDecrease}> Decrease</button>
-        </div>
+      <section className="cartList">
+        {this.props.activeCart.map(item => (
+          <div key={item.id} className="eachItem">
+            <p>Item: {item.shape.name}</p>
+            <p>Price: ${item.shape.price}</p>
+            <p>Size: {item.shape.size}</p>
+            <p>Qty: {item.quantity}</p>
+            <button onClick={() => this.handleIncrement(item)}>Increase</button>
+            <button onClick={() => this.handleDecrease(item)}> Decrease</button>
+          </div>
+        ))}
       </section>
     )
   }
@@ -45,4 +45,8 @@ const mapStateToDispatch = dispatch => {
   }
 }
 
-export default connect(null, mapStateToDispatch)(EachItemInCart)
+const mapStateToProps = state => ({
+  activeCart: state.shoppingCart.activeCart
+})
+
+export default connect(mapStateToProps, mapStateToDispatch)(EachItemInCart)

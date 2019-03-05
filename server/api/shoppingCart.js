@@ -46,3 +46,12 @@ router.get('/', async (req, res, next) => {
     next(err)
   }
 })
+
+// router.post('/', async (req, res, next) => {
+//   try {
+//     const addNewItem = await OrderItem.create(req.body, )
+//     res.json(userActiveOrder)
+//   } catch (err) {
+//     next(err)
+//   }
+// })

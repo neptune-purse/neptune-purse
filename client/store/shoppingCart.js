@@ -14,12 +14,14 @@ const initialCartState = {
 const GOT_ACTIVE_CART = 'GOT_ACTIVE_CART'
 const UPDATED_QTY = 'UPDATED_QTY'
 const DELETED_ITEM = 'DELETE_ITEM'
+const ADD_TO_CART = 'ADD_TO_CART'
 /**
  * ACTION CREATORS
  */
 const gotActiveCart = activeCart => ({type: GOT_ACTIVE_CART, activeCart})
 const updatedQty = newObj => ({type: UPDATED_QTY, newObj})
-const deleteItem = newObj => ({type: DELETED_ITEM, newObj})
+const deletedItem = newObj => ({type: DELETED_ITEM, newObj})
+const addedToCart = newObj => ({type: ADD_TO_CART, newObj})
 
 /**
  * THUNK CREATORS
@@ -38,9 +40,17 @@ export const updateQty = newObj => async dispatch => {
     if (newObj.quantity > 0) {
       dispatch(updatedQty(newObj))
     } else {
-      dispatch(deleteItem(newObj))
+      dispatch(deletedItem(newObj))
     }
     console.log('newObj', newObj)
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+export const addToCart = newObj => async dispatch => {
+  try {
+    dispatch(addedToCart(newObj))
   } catch (err) {
     console.error(err)
   }
@@ -64,6 +74,11 @@ export default function(state = initialCartState, action) {
         activeCart: [...state.activeCart].filter(
           item => item.id !== action.newObj.id
         )
+      }
+    case ADD_TO_CART:
+      return {
+        ...state,
+        activeCart: [...state.activeCart, action.newObj]
       }
     default:
       return state

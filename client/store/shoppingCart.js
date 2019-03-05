@@ -21,7 +21,7 @@ const ADD_TO_CART = 'ADD_TO_CART'
 const gotActiveCart = activeCart => ({type: GOT_ACTIVE_CART, activeCart})
 const updatedQty = newObj => ({type: UPDATED_QTY, newObj})
 const deletedItem = newObj => ({type: DELETED_ITEM, newObj})
-const addedToCart = newObj => ({type: ADD_TO_CART, newObj})
+const addedToCart = newItem => ({type: ADD_TO_CART, newItem})
 
 /**
  * THUNK CREATORS
@@ -48,9 +48,11 @@ export const updateQty = newObj => async dispatch => {
   }
 }
 
-export const addToCart = newObj => async dispatch => {
+export const addToCart = newItem => async dispatch => {
   try {
-    dispatch(addedToCart(newObj))
+    const newlyAddedItem = await axios.post('/api/shoppingCart', newItem)
+    console.log('this is after post request', newlyAddedItem.data)
+    dispatch(addedToCart(newlyAddedItem.data))
   } catch (err) {
     console.error(err)
   }

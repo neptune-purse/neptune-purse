@@ -48,7 +48,7 @@ class AllShapes extends Component {
 
 const mapStateToDispatch = dispatch => {
   return {
-    addToCart: newObj => dispatch(addToCart(newObj))
+    addToCart: newItem => dispatch(addToCart(newItem))
   }
 }
 

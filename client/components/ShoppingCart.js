@@ -2,24 +2,43 @@ import React, {Component} from 'react'
 import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {AllShapes} from '../components'
-import {getCart} from '../store/cart'
+import {getCart, updateQty} from '../store/cart'
 
-const ShoppingCart = props => {
-  return (
-    <div className="container">
-      <h1>Cart</h1>
-      {props.cart.map(item => (
-        <div key={item.id}>
-          <p>Item: {item.shape.name}</p>
-          <p>Price: ${item.shape.price}</p>
-          <p>Size: {item.shape.size}</p>
-          <p>Qty: {item.quantity}</p>
-          <button onClick={() => this.handleIncrement(item)}>Increase</button>
-          <button onClick={() => this.handleDecrease(item)}> Decrease</button>
-        </div>
-      ))}
-    </div>
-  )
+class ShoppingCart extends Component {
+  constructor(props) {
+    super(props)
+    this.handleIncrement = this.handleIncrement.bind(this)
+    this.handleDecrease = this.handleDecrease.bind(this)
+  }
+
+  handleIncrement(item) {
+    const qty = item.quantity + 1
+    const newQty = {...item, quantity: qty}
+    this.props.changeQty(newQty)
+  }
+
+  handleDecrease(item) {
+    const qty = item.quantity - 1
+    const newQty = {...item, quantity: qty}
+    this.props.changeQty(newQty)
+  }
+  render() {
+    return (
+      <div className="container">
+        <h1>Cart</h1>
+        {this.props.cart.map(item => (
+          <div key={item.id}>
+            <p>Item: {item.shape.name}</p>
+            <p>Price: ${item.shape.price}</p>
+            <p>Size: {item.shape.size}</p>
+            <p>Qty: {item.quantity}</p>
+            <button onClick={() => this.handleIncrement(item)}>Increase</button>
+            <button onClick={() => this.handleDecrease(item)}> Decrease</button>
+          </div>
+        ))}
+      </div>
+    )
+  }
 }
 
 const mapStateToProps = state => ({
@@ -27,7 +46,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  fetchCart: dispatch(getCart())
+  fetchCart: dispatch(getCart()),
+  changeQty: newQty => dispatch(updateQty(newQty))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShoppingCart)

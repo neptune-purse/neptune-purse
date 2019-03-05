@@ -36,8 +36,6 @@ router.post('/', async (req, res, next) => {
         orderId: order.id
       }
     })
-
-    console.log('Im inside orderItems', orderItem)
     if (orderItem[1] === false) {
       orderItem[0].quantity += item.quantity
     }

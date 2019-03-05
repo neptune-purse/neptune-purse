@@ -13,6 +13,8 @@ const initialCartState = {
 const GOT_OR_UPDATED_CART = 'GOT_OR_UPDATED_CART'
 const GOT_ACTIVE_ORDER_ITEMS = 'GOT_ACTIVE_ORDER_ITEMS'
 const ADDED_TO_ACTIVE_ORDER = 'ADDED_TO_ACTIVE_ORDER'
+const UPDATED_QTY = 'UPDATED_QTY'
+const DELETED_ITEM = 'DELETE_ITEM'
 
 /**
  * ACTION CREATORS
@@ -32,6 +34,12 @@ const addedToActiveOrder = orderItem => ({
   orderItem
 })
 
+const updatedQty = newQty => ({
+  type: UPDATED_QTY,
+  newQty
+})
+
+const deletedItem = newObj => ({type: DELETED_ITEM, newObj})
 /**
  * THUNK CREATORS
  */
@@ -59,7 +67,6 @@ export const getCart = () => async dispatch => {
 export const addToCart = item => async dispatch => {
   try {
     const res = await axios.post('/api/orderItems', item)
-    console.log('addToCart', res.data)
   } catch (error) {
     console.error(error)
   }
@@ -90,12 +97,24 @@ export const getActiveOrderItems = () => async dispatch => {
   }
 }
 
-export const addToActiveOrder = item => async dispatch => {
+// export const addToActiveOrder = item => async dispatch => {
+//   try {
+//     const response = await axios.post('/api/orderItems', item)
+//     dispatch(addedToActiveOrder(response.data))
+//   } catch (err) {
+//     console.log(err)
+//   }
+// }
+
+export const updateQty = newQty => async dispatch => {
   try {
-    const response = await axios.post('/api/orderItems', item)
-    dispatch(addedToActiveOrder(response.data))
+    if (newQty.quantity >= 1) {
+      dispatch(updatedQty(newQty))
+    } else {
+      dispatch(deletedItem(newQty))
+    }
   } catch (err) {
-    console.log(err)
+    console.error(err)
   }
 }
 
@@ -112,6 +131,21 @@ export default function(state = initialCartState, action) {
       return {
         ...state,
         currentCart: [...state.currentCart, ...action.orderItem]
+      }
+    case UPDATED_QTY:
+      const idx = state.currentCart.findIndex(
+        elm => elm.id === action.newQty.id
+      )
+      const newArr = [...state.currentCart]
+      newArr[idx].quantity = action.newQty.quantity
+      return {...state, currentCart: newArr}
+
+    case DELETED_ITEM:
+      return {
+        ...state,
+        currentCart: [...state.currentCart].filter(
+          item => item.id !== action.newObj.id
+        )
       }
     default:
       return state

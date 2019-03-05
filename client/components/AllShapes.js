@@ -9,7 +9,6 @@ class AllShapes extends Component {
   }
 
   handleAdd(item) {
-    console.log('im inside all shape', item)
     this.props.addToCart(item)
   }
 

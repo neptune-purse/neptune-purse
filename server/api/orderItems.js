@@ -28,12 +28,16 @@ router.post('/', async (req, res, next) => {
   const order = await Order.findOne({
     where: {userId: userId, status: 'active'}
   })
-  const orderId = order.id
+
   try {
     const orderItem = await OrderItem.findOrCreate({
-      shapeId: item.shapeid,
-      orderId: item.orderId
+      where: {
+        shapeId: item.id,
+        orderId: order.id
+      }
     })
+
+    console.log('Im inside orderItems', orderItem)
     if (orderItem[1] === false) {
       orderItem[0].quantity += item.quantity
     }

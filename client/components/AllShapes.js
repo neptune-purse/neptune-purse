@@ -1,10 +1,16 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Link, withRouter} from 'react-router-dom'
+import {addToCart} from '../store/cart'
 
 class AllShapes extends Component {
   constructor(props) {
     super(props)
+  }
+
+  handleAdd(item) {
+    console.log('im inside all shape', item)
+    this.props.addToCart(item)
   }
 
   render() {
@@ -23,7 +29,11 @@ class AllShapes extends Component {
                 <h6>Price: ${shape.price}</h6>
               </div>
             </Link>
-            <button className="btn" type="button" disabled="true">
+            <button
+              className="btn"
+              type="button"
+              onClick={() => this.handleAdd(shape)}
+            >
               Add to Cart
             </button>
           </div>
@@ -37,4 +47,12 @@ const mapStateToProps = state => ({
   allShapes: state.shapes.allShapes
 })
 
-export default withRouter(connect(mapStateToProps)(AllShapes))
+const mapStateToDispatch = dispatch => {
+  return {
+    addToCart: newItem => dispatch(addToCart(newItem))
+  }
+}
+
+export default withRouter(
+  connect(mapStateToProps, mapStateToDispatch)(AllShapes)
+)

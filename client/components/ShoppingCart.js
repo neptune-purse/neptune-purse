@@ -14,8 +14,8 @@ const ShoppingCart = props => {
           <p>Price: ${item.shape.price}</p>
           <p>Size: {item.shape.size}</p>
           <p>Qty: {item.quantity}</p>
-          {/* <button onClick={() => this.handleIncrement(item)}>Increase</button>
-          <button onClick={() => this.handleDecrease(item)}> Decrease</button> */}
+          <button onClick={() => this.handleIncrement(item)}>Increase</button>
+          <button onClick={() => this.handleDecrease(item)}> Decrease</button>
         </div>
       ))}
     </div>

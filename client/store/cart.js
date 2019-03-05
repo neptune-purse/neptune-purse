@@ -56,21 +56,28 @@ export const getCart = () => async dispatch => {
 //   quantity
 // }
 
-export const addToCart = item => dispatch => {
-  let cart = JSON.parse(window.localStorage.getItem('cart'))
-  let updated = false
-  let newCart = cart.map(cartItem => {
-    if (cartItem.shapeId === item.shapeId) {
-      cartItem.quantity = cartItem.quantity + item.quantity
-      updated = true
-    }
-    return cartItem
-  })
-  if (updated === false) {
-    newCart.push(item)
+export const addToCart = item => async dispatch => {
+  try {
+    const res = await axios.post('/api/orderItems', item)
+    console.log('addToCart', res.data)
+  } catch (error) {
+    console.error(error)
   }
-  window.localStorage.setItem('cart', JSON.stringify(newCart))
-  dispatch(gotOrUpdatedCart(newCart))
+
+  // let cart = JSON.parse(window.localStorage.getItem('cart'))
+  // let updated = false
+  // let newCart = cart.map(cartItem => {
+  //   if (cartItem.shapeId === item.shapeId) {
+  //     cartItem.quantity = cartItem.quantity + item.quantity
+  //     updated = true
+  //   }
+  //   return cartItem
+  // })
+  // if (updated === false) {
+  //   newCart.push(item)
+  // }
+  // window.localStorage.setItem('cart', JSON.stringify(newCart))
+  // dispatch(gotOrUpdatedCart(newCart))
 }
 
 export const getActiveOrderItems = () => async dispatch => {

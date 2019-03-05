@@ -4,25 +4,28 @@ import axios from 'axios'
  * INITIAL STATE
  */
 const initialCartState = {
-  currentCart: []
+  currentCart: [],
+  orderId: null
 }
 
 /**
  * ACTION TYPES
  */
-const GOT_CART = 'GOT_CART'
+const GOT_OR_UPDATED_CART = 'GOT_OR_UPDATED_CART'
 const GOT_ACTIVE_ORDER_ITEMS = 'GOT_ACTIVE_ORDER_ITEMS'
 
 /**
  * ACTION CREATORS
  */
-const gotCart = cart => ({
-  type: GOT_CART,
+const gotOrUpdatedCart = cart => ({
+  type: GOT_OR_UPDATED_CART,
   cart
 })
-const gotActiveOrderItmes = order => ({
+
+const gotActiveOrderItmes = (orderItems, oderId) => ({
   type: GOT_ACTIVE_ORDER_ITEMS,
-  orderItems
+  orderItems,
+  orderId
 })
 
 /**
@@ -37,22 +40,52 @@ export const getCart = () => dispatch => {
   dispatch(gotCart(JSON.parse(cart)))
 }
 
+export const addToCart = item => async dispatch => {
+  let cart = JSON.parse(window.localStorage.getItem('cart'))
+  let updated = false
+  let newCart = cart.map(cartItem => {
+    if (cartItem.shapeId === item.shapeId) {
+      cartItem.quantity = cartItem.quantity + item.quantity
+      updated = true
+    }
+    return cartItem // is my map syntax correct?
+  })
+  if (updated === false) {
+    newCart.push(item)
+  }
+  window.localStorage.setItem('cart', JSON.stringify(newCart))
+  dispatch(gotOrUpdatedCart(newCart))
+}
+
 export const getActiveOrderItems = () => async dispatch => {
   try {
     const response = await axios.get('/api/orderItems')
-    const orderItems = response.data
+    const orderItems = response.data.orders
+    const orderId = response.data.orderId
     if (orderItems.length) {
       const order = orderItems.map(orderItem => {
-        return {shape: orderItem.shapeId, quantity: orderItem.quantity}
+        return {shapeId: orderItem.shapeId, quantity: orderItem.quantity}
       })
-      dispatch(gotActiveOrderItmes(order))
+      dispatch(gotActiveOrderItmes(order, orderId))
     } else {
-      dispatch(gotActiveOrderItmes(orderItems))
+      dispatch(gotActiveOrderItmes([], orderId))
     }
-
-    // this is not what i want to update cart with hmmmm
   } catch (err) {
     console.error(err)
+  }
+}
+
+// where is the orderId coming from?
+// should there be an orderId on state, then orderId added to item?
+// I think we should put the orderId on the item object
+// can we just dispatch 2 thunk creators from our client side
+// like, dispatch(addToActiveOrder) to update our database,
+// then dispatch(getActiveOrderItems) to update our cart on state
+export const addToActiveOrder = item => async dispatch => {
+  try {
+    const response = await axios.post('/orderItems', item)
+  } catch (err) {
+    console.log(err)
   }
 }
 
@@ -61,10 +94,10 @@ export const getActiveOrderItems = () => async dispatch => {
  */
 export default function(state = initialCartState, action) {
   switch (action.type) {
-    case GOT_CART:
+    case GOT_OR_UPDATED_CART:
       return {...state, currentCart: action.cart}
     case GOT_ACTIVE_ORDER_ITEMS:
-      return {...state, currentCart: action.order}
+      return {...state, currentCart: action.order, orderId: action.orderId}
     default:
       return state
   }

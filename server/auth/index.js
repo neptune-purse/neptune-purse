@@ -16,6 +16,7 @@ router.post('/login', async (req, res, next) => {
       // find associated active order
       const order = await Order.findOne({
         where: {uderId: user.id, status: 'active'}
+        // update state with associated orderItems
       })
       req.session.orderId = order.id
       req.login(user, err => (err ? next(err) : res.json(user)))
@@ -30,6 +31,9 @@ router.post('/signup', async (req, res, next) => {
     const user = await User.create(req.body)
     const userId = user.id
     const order = await Order.create({status: 'active', userId: userId})
+    //this order needs to update with whatever is currently in the local storage cart
+    // create orderItems that match shapes and quantity in the local storage cart
+    // bulk create
     req.session.orderId = order.id
     req.login(user, err => (err ? next(err) : res.json(user)))
   } catch (err) {

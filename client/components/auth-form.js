@@ -64,7 +64,9 @@ const mapDispatch = dispatch => {
       const formName = evt.target.name
       const email = evt.target.email.value
       const password = evt.target.password.value
-      dispatch(auth(email, password, formName))
+      const cart = JSON.parse(window.localStorage.getItem('cart'))
+      dispatch(auth(email, password, formName, cart))
+      window.localStorage.removeItem('cart')
     }
   }
 }

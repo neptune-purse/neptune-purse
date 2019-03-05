@@ -1,7 +1,6 @@
 //delete this comment later
 const router = require('express').Router()
-const User = require('../db/models/user')
-const Order = require('../db/models/order')
+const {User, Order, OrderItem} = require('../db/models')
 module.exports = router
 
 router.post('/login', async (req, res, next) => {
@@ -21,19 +20,6 @@ router.post('/login', async (req, res, next) => {
   }
 })
 
-// router.post('/signup', async (req, res, next) => {
-//   try {
-//     const user = await User.create(req.body)
-//     req.login(user, err => (err ? next(err) : res.json(user)))
-//   } catch (err) {
-//     if (err.name === 'SequelizeUniqueConstraintError') {
-//       res.status(401).send('User already exists')
-//     } else {
-//       next(err)
-//     }
-//   }
-// })
-
 //Working on security below
 router.post('/signup', async (req, res, next) => {
   try {
@@ -43,9 +29,14 @@ router.post('/signup', async (req, res, next) => {
     })
     const userId = user.id
     const order = await Order.create({status: 'active', userId: userId})
-    //this order needs to update with whatever is currently in the local storage cart
-    // create orderItems that match shapes and quantity in the local storage cart
-    // bulk create
+    const cart = req.body.cart
+    const orderId = order.id
+
+    const newCart = cart.map(item => {
+      item.orderId = orderId
+      return item
+    })
+    OrderItem.bulkCreate(newCart)
     req.login(user, err => (err ? next(err) : res.json(user)))
   } catch (err) {
     if (err.name === 'SequelizeUniqueConstraintError') {

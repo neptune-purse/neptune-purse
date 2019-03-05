@@ -1,18 +1,26 @@
-import React from 'react'
+import React, {Component} from 'react'
 // import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-
+import Container from './container'
+import {getActiveCart} from '../store/shoppingCart'
 /**
  * COMPONENT
  */
-export const UserHome = props => {
-  const {email} = props
 
-  return (
-    <div>
-      <h3>Welcome, {email}</h3>
-    </div>
-  )
+class UserHome extends Component {
+  async componentDidMount() {
+    await this.props.loadShoppingCart()
+  }
+
+  render() {
+    const {email} = this.props
+    return (
+      <div>
+        <h3>Welcome, {email}</h3>
+        <Container />
+      </div>
+    )
+  }
 }
 
 /**
@@ -24,7 +32,11 @@ const mapState = state => {
   }
 }
 
-export default connect(mapState)(UserHome)
+const mapDispatch = dispatch => ({
+  loadShoppingCart: () => dispatch(getActiveCart())
+})
+
+export default connect(mapState, mapDispatch)(UserHome)
 
 /**
  * PROP TYPES

@@ -33,8 +33,9 @@ class AllShapes extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  allShapes: state.shapes.allShapes
-})
+// const mapStateToProps = state => ({
+//   allShapes: state.shapes.allShapes
+// })
 
-export default withRouter(connect(mapStateToProps)(AllShapes))
+// export default withRouter(connect(mapStateToProps)(AllShapes))
+export default AllShapes

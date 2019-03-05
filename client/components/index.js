@@ -6,5 +6,7 @@
 export {default as Navbar} from './navbar'
 export {default as UserHome} from './user-home'
 export {default as AllShapes} from './AllShapes'
+export {default as ShoppingCart} from './shoppingCart'
+export {default as Container} from './container'
 export {default as OneShape} from './OneShape'
 export {Login, Signup} from './auth-form'

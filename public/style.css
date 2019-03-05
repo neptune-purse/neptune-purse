@@ -27,6 +27,7 @@ form div {
   display: inline-flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
+  width: 80%;
 }
 
 .oneShape {
@@ -47,4 +48,14 @@ form div {
 
 ul #oneShape {
   display: flex;
+}
+
+/* container for AllShapes & ShoppingCart */
+.container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.shoppingCart {
+  width: 15%;
 }

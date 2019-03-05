@@ -31,6 +31,7 @@ router.get('/', async (req, res, next) => {
         status: 'active'
       }
     })
+    console.log('hi hi h ihi hi hi', userActiveOrderNum)
     const userActiveOrder = await OrderItem.findAll({
       where: {
         orderId: userActiveOrderNum.id

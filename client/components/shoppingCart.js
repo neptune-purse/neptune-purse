@@ -1,25 +1,33 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Link, withRouter} from 'react-router-dom'
+import EachItemInCart from './eachItemInCart'
+import {getActiveCart} from '../store/shoppingCart'
 
-const ShoppingCart = props => {
-  return (
-    <div className="shoppingCart">
-      <h2 className="section-title">Shopping Cart</h2>
-      {props.activeCart.map(item => (
-        <section key={item.id} className="cartList">
-          <div className="eachItem">
-            <p>Price: ${item.shape.price}</p>
-            <p>Color: {item.shape.color}</p>
-            <p>Size: {item.shape.size}</p>
-            <p>Qty: {item.quantity}</p>
-            {/* <button onClick={this.handleIncrement}>Increase</button>
-              <button onClick={this.handleDecrease}> Decrease</button> */}
-          </div>
-        </section>
-      ))}
-    </div>
-  )
+class ShoppingCart extends Component {
+  componentDidMount() {
+    this.props.loadShoppingCart()
+  }
+
+  render() {
+    console.log('im checking original', this.props.activeCart)
+    return (
+      <div className="shoppingCart">
+        <h2 className="section-title">Shopping Cart</h2>
+        {this.props.activeCart.map(item => (
+          <EachItemInCart key={item.id} item={item} />
+        ))}
+      </div>
+    )
+  }
 }
 
-export default ShoppingCart
+const mapStateToProps = state => ({
+  activeCart: state.shoppingCart.activeCart
+})
+
+const mapDispatch = dispatch => ({
+  loadShoppingCart: () => dispatch(getActiveCart())
+})
+
+export default connect(mapStateToProps, mapDispatch)(ShoppingCart)

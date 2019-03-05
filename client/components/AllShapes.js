@@ -9,12 +9,13 @@ class AllShapes extends Component {
     this.addHandler = this.addHandler.bind(this)
   }
   addHandler(event) {
-    console.log('this is the event', event)
-    console.log('this is ', this.props)
+    // console.log('this is the event', event)
+    // console.log('this is ', this.props)
     this.props.addItem(event)
   }
 
   render() {
+    console.log('this is state in the front end ', this.props)
     return (
       <div className="allShapesPage">
         {this.props.allShapes.map(shape => (
@@ -45,7 +46,8 @@ class AllShapes extends Component {
 }
 
 const mapStateToProps = state => ({
-  allShapes: state.shapes.allShapes
+  allShapes: state.shapes.allShapes,
+  cart: state.cart.items
 })
 
 const mapDispatchToProps = dispatch => ({

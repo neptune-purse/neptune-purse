@@ -1,14 +1,16 @@
 const router = require('express').Router()
-const {orderItem} = require('../db/models')
+const {OrderItem} = require('../db/models')
 module.exports = router
 
-router.post('/', (req, res, next) => {
+router.post('/', async (req, res, next) => {
   try {
-    console.log('THIS IS INSIDE THE ROUTER', req.body)
+    const order = await OrderItem.create({quantity: 1, shapeId: req.body.id})
+    res.json(req.body)
   } catch (error) {
     next(error)
   }
-
-  const order = {productId: req.body.productId, quantity: req.body.quantity}
-  res.json(order)
 })
+
+//   const order = {productId: req.body.productId, quantity: req.body.quantity}
+//   res.json(order)
+// })

@@ -18,8 +18,13 @@ const gotItems = items => ({
 //THUNK CREATORS
 export const addItem = product => {
   return async dispatch => {
-    const {data: res} = await axios.post('/api/orders', product)
-    dispatch(gotItems(res))
+    try {
+      const {data: res} = await axios.post('/api/orders', product)
+      console.log('this is inside cart store', res)
+      dispatch(gotItems(res))
+    } catch (error) {
+      console.log('your dispatch is prob not working')
+    }
   }
 }
 
@@ -27,7 +32,7 @@ export const addItem = product => {
 export default function(state = initialState, action) {
   switch (action.type) {
     case GOT_ITEMS:
-      return {...state, items: [...state.items, ...action.items]}
+      return {...state, items: [...state.items, action.items]}
     default:
       return state
   }

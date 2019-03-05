@@ -2,9 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 
 const ShoppingCart = props => {
-  console.log(props)
   const {cart} = props
-  console.log(cart)
   return (
     <div>
       <h1>Current Orders</h1>

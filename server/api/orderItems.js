@@ -29,15 +29,17 @@ router.put('/', async (req, res, next) => {
     where: {userId: userId, status: 'active'}
   })
   try {
-    const [orderItem, wasCreated] = await OrderItem.findOrCreate({
+    const [weirdObject, wasCreated] = await OrderItem.findOrCreate({
       where: {
         shapeId: item.id,
         orderId: order.id
       }
     })
-    // console.log('ORDERITEM: ', orderItem)
+    console.log('weird', weirdObject)
+    const orderItem = weirdObject.dataValues
     if (wasCreated === false) {
       orderItem.quantity += item.quantity
+      //instance.update({quantity: old aquantity + new quantity})
     }
     res.json(orderItem)
   } catch (err) {

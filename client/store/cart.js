@@ -13,6 +13,8 @@ const initialCartState = {
 const GOT_OR_UPDATED_CART = 'GOT_OR_UPDATED_CART'
 const GOT_ACTIVE_ORDER_ITEMS = 'GOT_ACTIVE_ORDER_ITEMS'
 const ADDED_TO_ACTIVE_ORDER = 'ADDED_TO_ACTIVE_ORDER'
+const UPDATED_QTY = 'UPDATED_QTY'
+const DELETED_ITEM = 'DELETE_ITEM'
 
 /**
  * ACTION CREATORS
@@ -32,6 +34,12 @@ const addedToActiveOrder = orderItem => ({
   orderItem
 })
 
+const updatedQty = newQty => ({
+  type: UPDATED_QTY,
+  newQty
+})
+
+const deletedItem = newObj => ({type: DELETED_ITEM, newObj})
 /**
  * THUNK CREATORS
  */
@@ -85,13 +93,26 @@ export const getActiveOrderItems = () => async dispatch => {
 
 export const addToActiveOrder = item => async dispatch => {
   try {
-    console.log('ITEM IN CART THUNK: ', item)
-    const response = await axios.put('/api/orderItems', item)
-    console.log('RES DATA: ', response.data)
+    const response = await axios.post('/api/orderItems', item)
     dispatch(addedToActiveOrder(response.data))
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+export const updateQty = newQty => async dispatch => {
+  try {
+    await axios.put('/api/orderItems', newQty)
+    dispatch(updatedQty(newQty))
   } catch (err) {
     console.error(err)
   }
+}
+
+export const removeItem = item => async dispatch => {
+  dispatch(deletedItem(item))
+  console.log('inside of cart store', item)
+  await axios.delete(`/api/orderItems/:${item.id}`)
 }
 
 /**
@@ -107,6 +128,21 @@ export default function(state = initialCartState, action) {
       return {
         ...state,
         currentCart: [...state.currentCart, action.orderItem]
+      }
+    case UPDATED_QTY:
+      const idx = state.currentCart.findIndex(
+        elm => elm.id === action.newQty.id
+      )
+      const newArr = [...state.currentCart]
+      newArr[idx].quantity = action.newQty.quantity
+      return {...state, currentCart: newArr}
+
+    case DELETED_ITEM:
+      return {
+        ...state,
+        currentCart: [...state.currentCart].filter(
+          item => item.id !== action.newObj.id
+        )
       }
     default:
       return state

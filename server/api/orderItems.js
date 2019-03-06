@@ -46,3 +46,32 @@ router.put('/', async (req, res, next) => {
     next(err)
   }
 })
+
+router.put('/', async (req, res, next) => {
+  try {
+    const item = await OrderItem.find({
+      where: {
+        shapeId: req.body.shapeId
+      }
+    })
+    const updatedItem = await item.update({
+      quantity: req.body.quantity
+    })
+    res.json(updatedItem)
+  } catch (error) {
+    next(err)
+  }
+})
+
+router.delete('/:orderItemId', async (req, res, next) => {
+  const deleteItem = Number(req.params.orderItemId.slice(1))
+  try {
+    await OrderItem.destroy({
+      where: {
+        id: deleteItem
+      }
+    })
+  } catch (error) {
+    next(error)
+  }
+})

@@ -112,13 +112,20 @@ export const updateQty = newQty => async dispatch => {
       await axios.put('/api/orderItems', newQty)
       dispatch(updatedQty(newQty))
     } else {
-      console.log('inside of cart store', newQty)
-      await axios.delete(`/api/orderItems/:${newQty.shapeId}`)
-      dispatch(deletedItem(newQty))
+      // dispatch(deletedItem(newQty))
+      // console.log('inside of cart store', newQty)
+      // await axios.delete(`/api/orderItems`, newQty)
+      console.log('hello?')
     }
   } catch (err) {
     console.error(err)
   }
+}
+
+export const removeItem = item => async dispatch => {
+  dispatch(deletedItem(item))
+  console.log('inside of cart store', item)
+  await axios.delete(`/api/orderItems/:${item.id}`)
 }
 
 /**

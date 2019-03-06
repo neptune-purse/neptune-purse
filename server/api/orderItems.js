@@ -61,17 +61,14 @@ router.put('/', async (req, res, next) => {
   }
 })
 
-router.delete('/', async (req, res, next) => {
+router.delete('/:orderItemId', async (req, res, next) => {
+  const deleteItem = Number(req.params.orderItemId.slice(1))
   try {
-    // console.log("delete route", req.params.shapeId)
-    // await OrderItem.destroy({
-    //   where: {
-    //     shapeId: req.params.shapeId
-    //   }
-    // })
-    console.log('number here', req.body)
-    const deleteItem = await OrderItem.findById(id)
-    await delteItem.destroy()
+    await OrderItem.destroy({
+      where: {
+        id: deleteItem
+      }
+    })
   } catch (error) {
     next(error)
   }

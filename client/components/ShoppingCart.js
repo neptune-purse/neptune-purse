@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {AllShapes} from '../components'
-import {getCart, updateQty} from '../store/cart'
+import {getCart, updateQty, removeItem} from '../store/cart'
 
 class ShoppingCart extends Component {
   constructor(props) {
@@ -19,8 +19,12 @@ class ShoppingCart extends Component {
 
   handleDecrease(item) {
     const qty = item.quantity - 1
-    const newQty = {...item, quantity: qty}
-    this.props.changeQty(newQty)
+    if (qty > 0) {
+      const newQty = {...item, quantity: qty}
+      this.props.changeQty(newQty)
+    } else {
+      this.props.deleteItem(item)
+    }
   }
   render() {
     return (
@@ -47,7 +51,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchCart: dispatch(getCart()),
-  changeQty: newQty => dispatch(updateQty(newQty))
+  changeQty: newQty => dispatch(updateQty(newQty)),
+  deleteItem: item => dispatch(removeItem(item))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShoppingCart)

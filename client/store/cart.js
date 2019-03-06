@@ -111,7 +111,6 @@ export const updateQty = newQty => async dispatch => {
 
 export const removeItem = item => async dispatch => {
   dispatch(deletedItem(item))
-  console.log('inside of cart store', item)
   await axios.delete(`/api/orderItems/:${item.id}`)
 }
 

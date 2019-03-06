@@ -6,7 +6,6 @@ module.exports = router
 router.get('/', async (req, res, next) => {
   try {
     const userId = req.session.passport.user
-    console.log('session', req.session)
     const order = await Order.findById(userId)
     res.json(order)
   } catch (err) {

@@ -35,7 +35,6 @@ router.put('/', async (req, res, next) => {
         orderId: order.id
       }
     })
-    console.log('weird', weirdObject)
     const orderItem = weirdObject.dataValues
     if (wasCreated === false) {
       orderItem.quantity += item.quantity

@@ -15,7 +15,6 @@ class AllShapes extends Component {
   }
 
   render() {
-    console.log('PROPS.ALLSHAPES: ', this.props.allShapes)
     return (
       <div className="allShapesPage">
         {this.props.allShapes.map(shape => (

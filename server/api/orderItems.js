@@ -22,7 +22,7 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-router.put('/', async (req, res, next) => {
+router.post('/', async (req, res, next) => {
   const item = req.body
   const userId = req.user.id
   const order = await Order.findOne({
@@ -36,6 +36,7 @@ router.put('/', async (req, res, next) => {
       }
     })
     const orderItem = weirdObject.dataValues
+    console.log('orderItem', orderItem)
     if (wasCreated === false) {
       orderItem.quantity += item.quantity
       //instance.update({quantity: old aquantity + new quantity})

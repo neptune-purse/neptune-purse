@@ -1,8 +1,6 @@
 import React, {Component} from 'react'
 import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
-import {AllShapes} from '../components'
-import {getCart} from '../store/cart'
 
 const ShoppingCart = props => {
   return (
@@ -26,8 +24,4 @@ const mapStateToProps = state => ({
   cart: state.cart.currentCart
 })
 
-const mapDispatchToProps = dispatch => ({
-  fetchCart: dispatch(getCart())
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(ShoppingCart)
+export default connect(mapStateToProps)(ShoppingCart)

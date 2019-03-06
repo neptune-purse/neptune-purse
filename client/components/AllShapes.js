@@ -1,19 +1,21 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Link, withRouter} from 'react-router-dom'
-import {addToCart} from '../store/cart'
+import {addToActiveOrder} from '../store/cart'
 
 class AllShapes extends Component {
   constructor(props) {
     super(props)
+
+    this.handleAdd = this.handleAdd.bind(this)
   }
 
   handleAdd(item) {
-    console.log('im inside all shape', item)
     this.props.addToCart(item)
   }
 
   render() {
+    console.log('PROPS.ALLSHAPES: ', this.props.allShapes)
     return (
       <div className="allShapesPage">
         {this.props.allShapes.map(shape => (
@@ -49,7 +51,7 @@ const mapStateToProps = state => ({
 
 const mapStateToDispatch = dispatch => {
   return {
-    addToCart: newItem => dispatch(addToCart(newItem))
+    addToCart: newItem => dispatch(addToActiveOrder(newItem))
   }
 }
 

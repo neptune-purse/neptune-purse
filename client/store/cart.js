@@ -57,27 +57,20 @@ export const getCart = () => async dispatch => {
 // }
 
 export const addToCart = item => async dispatch => {
-  try {
-    const res = await axios.post('/api/orderItems', item)
-    console.log('addToCart', res.data)
-  } catch (error) {
-    console.error(error)
+  let cart = JSON.parse(window.localStorage.getItem('cart'))
+  let updated = false
+  let newCart = cart.map(cartItem => {
+    if (cartItem.shapeId === item.shapeId) {
+      cartItem.quantity = cartItem.quantity + item.quantity
+      updated = true
+    }
+    return cartItem
+  })
+  if (updated === false) {
+    newCart.push(item)
   }
-
-  // let cart = JSON.parse(window.localStorage.getItem('cart'))
-  // let updated = false
-  // let newCart = cart.map(cartItem => {
-  //   if (cartItem.shapeId === item.shapeId) {
-  //     cartItem.quantity = cartItem.quantity + item.quantity
-  //     updated = true
-  //   }
-  //   return cartItem
-  // })
-  // if (updated === false) {
-  //   newCart.push(item)
-  // }
-  // window.localStorage.setItem('cart', JSON.stringify(newCart))
-  // dispatch(gotOrUpdatedCart(newCart))
+  window.localStorage.setItem('cart', JSON.stringify(newCart))
+  dispatch(gotOrUpdatedCart(newCart))
 }
 
 export const getActiveOrderItems = () => async dispatch => {
@@ -92,10 +85,12 @@ export const getActiveOrderItems = () => async dispatch => {
 
 export const addToActiveOrder = item => async dispatch => {
   try {
-    const response = await axios.post('/api/orderItems', item)
+    console.log('ITEM IN CART THUNK: ', item)
+    const response = await axios.put('/api/orderItems', item)
+    console.log('RES DATA: ', response.data)
     dispatch(addedToActiveOrder(response.data))
   } catch (err) {
-    console.log(err)
+    console.error(err)
   }
 }
 
@@ -111,7 +106,7 @@ export default function(state = initialCartState, action) {
     case ADDED_TO_ACTIVE_ORDER:
       return {
         ...state,
-        currentCart: [...state.currentCart, ...action.orderItem]
+        currentCart: [...state.currentCart, action.orderItem]
       }
     default:
       return state

@@ -109,8 +109,11 @@ export const getActiveOrderItems = () => async dispatch => {
 export const updateQty = newQty => async dispatch => {
   try {
     if (newQty.quantity >= 1) {
+      await axios.put('/api/orderItems', newQty)
       dispatch(updatedQty(newQty))
     } else {
+      console.log('inside of cart store', newQty)
+      await axios.delete(`/api/orderItems/:${newQty.shapeId}`)
       dispatch(deletedItem(newQty))
     }
   } catch (err) {

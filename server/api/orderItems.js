@@ -44,3 +44,35 @@ router.post('/', async (req, res, next) => {
     next(err)
   }
 })
+
+router.put('/', async (req, res, next) => {
+  try {
+    const item = await OrderItem.find({
+      where: {
+        shapeId: req.body.shapeId
+      }
+    })
+    const updatedItem = await item.update({
+      quantity: req.body.quantity
+    })
+    res.json(updatedItem)
+  } catch (error) {
+    next(err)
+  }
+})
+
+router.delete('/', async (req, res, next) => {
+  try {
+    // console.log("delete route", req.params.shapeId)
+    // await OrderItem.destroy({
+    //   where: {
+    //     shapeId: req.params.shapeId
+    //   }
+    // })
+    console.log('number here', req.body)
+    const deleteItem = await OrderItem.findById(id)
+    await delteItem.destroy()
+  } catch (error) {
+    next(error)
+  }
+})
